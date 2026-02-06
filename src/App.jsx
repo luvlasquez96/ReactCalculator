@@ -15,16 +15,23 @@ function App() {
     setUserInput((prevUserInput) => {
       return {
         ...prevUserInput,
-        [inputIdentifier]: newValue,
+        [inputIdentifier]: +newValue,
       };
     });
   }
+
+  const inputIsValid = userInput.duration >= 1;
 
   return (
     <>
       <Header />
       <UserInput userInput={userInput} onChange={handleChange} />
-      <Results userInput={userInput} />
+      {!inputIsValid && (
+        <p style={{ color: "red", textAlign: "center" }}>
+          Please enter a valid duration (at least 1 year).
+        </p>
+      )}
+      {inputIsValid && <Results userInput={userInput} />}
     </>
   );
 }
